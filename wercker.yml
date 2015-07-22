@@ -11,7 +11,7 @@ build:
           cd ${WERCKER_SOURCE_DIR}
           docker build -t quay.io/dtan4/ngxmrb-image-server .
     - script:
-        name: Run quay.io/wantedly/ngxmrb-image-server
+        name: Run quay.io/dtan4/ngxmrb-image-server
         code: >
           script/run -d
     - script:
