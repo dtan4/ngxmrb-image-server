@@ -1,0 +1,20 @@
+box: wercker-labs/docker
+build:
+  steps:
+    - script:
+        name: Check docker version
+        code: |
+          docker -v
+    - script:
+        name: Build quay.io/dtan4/ngxmrb-image-server
+        code: |
+          cd ${WERCKER_SOURCE_DIR}
+          docker build -t quay.io/dtan4/ngxmrb-image-server .
+    - script:
+        name: Run quay.io/dtan4/ngxmrb-image-server
+        code: >
+          script/run -d
+    - script:
+        name: Run tester
+        code: >
+          script/run-infrataster

@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Usage: script/test
+# Description: script to run test
+#
+
+set -e
+
+# this script should be run in project root
+BASE_DIRECTORY=`pwd`
+SERVER_NAME="image.example.com"
+
+echo "==> Building target..."
+cd $BASE_DIRECTORY
+script/build
+
+echo "==> Running ngxmrb-image-server..."
+docker kill ngxmrb-image-server > /dev/null 2>&1 || true
+docker rm   ngxmrb-image-server > /dev/null 2>&1 || true
+docker kill infrataster > /dev/null 2>&1 || true
+docker rm   infrataster > /dev/null 2>&1 || true
+script/run -d
+
+echo "==> Running test..."
+script/run-infrataster
+
+echo "==> Cleaning up..."
+docker kill ngxmrb-image-server > /dev/null 2>&1 || true
+docker rm   ngxmrb-image-server > /dev/null 2>&1 || true
+docker kill infrataster > /dev/null 2>&1 || true
+docker rm   infrataster > /dev/null 2>&1 || true
