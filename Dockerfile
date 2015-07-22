@@ -30,6 +30,7 @@ RUN cd /tmp/nginx-${NGINX_VERSION} && \
     rm -rf /tmp/*
 
 COPY files/nginx.conf /etc/nginx/nginx.conf
+COPY files/hello.rb /opt/nginx/html/hello.rb
 
 EXPOSE 80
 
